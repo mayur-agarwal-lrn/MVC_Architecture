@@ -126,6 +126,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BAL\IRepository.cs" />
+    <Compile Include="BAL\StudentsRepository.cs" />
     <Compile Include="DAL\CollegeDBContext.cs" />
     <Compile Include="DAL\CollegeDBInitializer.cs" />
     <Compile Include="Controllers\HomeController.cs" />

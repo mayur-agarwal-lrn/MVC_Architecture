@@ -1,20 +1,24 @@
-﻿using System.Data.Entity;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using UniversityApp.DAL;
+using UniversityApp.BAL;
 using UniversityApp.Models;
 
 namespace MVCArchitecture.Web.Controllers
 {
     public class StudentsController : Controller
     {
-        private CollegeDBContext db = new CollegeDBContext();
+        private readonly IRepository<Student> studentsRepository;
+
+        public StudentsController()
+        {
+            this.studentsRepository = new StudentsRepository();
+        }
 
         // GET: Students
         public async Task<ActionResult> Index()
         {
-            return View(await db.Students.ToListAsync());
+            return View(await studentsRepository.GetAll());
         }
 
         // GET: Students/Details/5
@@ -24,7 +28,7 @@ namespace MVCArchitecture.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
+            Student student = await studentsRepository.GetById(id.Value);
             if (student == null)
             {
                 return HttpNotFound();
@@ -47,8 +51,7 @@ namespace MVCArchitecture.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
-                await db.SaveChangesAsync();
+                await studentsRepository.Create(student);
                 return RedirectToAction("Index");
             }
 
@@ -62,7 +65,7 @@ namespace MVCArchitecture.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
+            Student student = await studentsRepository.GetById(id.Value);
             if (student == null)
             {
                 return HttpNotFound();
@@ -79,8 +82,7 @@ namespace MVCArchitecture.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await studentsRepository.Update(student);
                 return RedirectToAction("Index");
             }
             return View(student);
@@ -93,7 +95,7 @@ namespace MVCArchitecture.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
+            Student student = await studentsRepository.GetById(id.Value);
             if (student == null)
             {
                 return HttpNotFound();
@@ -106,9 +108,7 @@ namespace MVCArchitecture.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Student student = await db.Students.FindAsync(id);
-            db.Students.Remove(student);
-            await db.SaveChangesAsync();
+            await studentsRepository.Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -116,8 +116,9 @@ namespace MVCArchitecture.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                studentsRepository.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
