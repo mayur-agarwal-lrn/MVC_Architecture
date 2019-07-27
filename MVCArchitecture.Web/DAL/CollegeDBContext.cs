@@ -2,7 +2,7 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniversityApp.Models;
 
-namespace UniversityApp.BAL
+namespace UniversityApp.DAL
 {
     public class CollegeDBContext : DbContext
     {

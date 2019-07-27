@@ -126,8 +126,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BAL\CollegeDBContext.cs" />
-    <Compile Include="BAL\CollegeDBInitializer.cs" />
+    <Compile Include="DAL\CollegeDBContext.cs" />
+    <Compile Include="DAL\CollegeDBInitializer.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Global.asax.cs">

@@ -2,7 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using UniversityApp.BAL;
+using UniversityApp.DAL;
 using UniversityApp.Models;
 
 namespace MVCArchitecture.Web.Controllers

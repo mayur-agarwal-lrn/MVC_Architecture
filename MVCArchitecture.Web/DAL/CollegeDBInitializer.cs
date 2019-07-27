@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UniversityApp.Models;
 
-namespace UniversityApp.BAL
+namespace UniversityApp.DAL
 {
-    public class CollegeDBInitializer : System.Data.Entity.DropCreateDatabaseAlways<CollegeDBContext>
+    public class CollegeDBInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<CollegeDBContext>
     {
         protected override void Seed(CollegeDBContext context)
         {
