@@ -1,18 +1,24 @@
-﻿using System;
+﻿using MVCArchitecture.Web.BAL;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace UniversityApp.Models
 {
     public class Student
     {
         public int Id { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required, MaxLength(30)]
         public string LastName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
         public string ImagePath { get; set; }
+
+        [CustomDateRange]
         public DateTime AdmissionDate { get; set; }
 
         public virtual ICollection<Enrollment> Enrollments { get; set; }

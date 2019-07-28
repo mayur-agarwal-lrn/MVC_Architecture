@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using MVCArchitecture.Web.BAL;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using UniversityApp.BAL;
@@ -47,7 +48,7 @@ namespace MVCArchitecture.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,LastName,Address,City,State,Country,ImagePath,AdmissionDate")] Student student)
+        public async Task<ActionResult> Create([ModelBinder(typeof(StudentCustomBinder))] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +79,7 @@ namespace MVCArchitecture.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Address,City,State,Country,ImagePath,AdmissionDate")] Student student)
+        public async Task<ActionResult> Edit([ModelBinder(typeof(StudentCustomBinder))] Student student)
         {
             if (ModelState.IsValid)
             {
