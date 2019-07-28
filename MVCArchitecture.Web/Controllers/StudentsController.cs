@@ -1,4 +1,5 @@
 ﻿using MVCArchitecture.Web.BAL;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -17,9 +18,18 @@ namespace MVCArchitecture.Web.Controllers
         }
 
         // GET: Students
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder, int? page)
         {
-            return View(await studentsRepository.GetAll());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "admission_date" ? "admission_date_desc" : "admission_date";
+
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+            var students = await studentsRepository.GetSortedPagedList(sortOrder, pageNumber, pageSize);
+
+            return View(students);
         }
 
         // GET: Students/Details/5

@@ -21,7 +21,7 @@ namespace UniversityApp.Models
         public string Country { get; set; }
         public string ImagePath { get; set; }
 
-        [CustomDateRange]
+        [CustomDateRange, Display(Name = "Admission Date")]
         public DateTime AdmissionDate { get; set; }
 
         public virtual ICollection<Enrollment> Enrollments { get; set; }
